@@ -196,25 +196,53 @@ def mark_outliers_lof(dataset, columns, n=20):
     return dataset, outliers, X_scores
 
 # Loop over all columns
+dataset, outliers, X_scores = mark_outliers_lof(df, outliers_columns)
 for col in outliers_columns:
-    dataset = mark_outliers_lof(df, col)
-    plot_binary_outliers(dataset, col, col + "_outlier", True)
+    plot_binary_outliers(dataset, col, "outlier_lof", True)
 
 # --------------------------------------------------------------
 # Check outliers grouped by label
 # --------------------------------------------------------------
+label = "squat"
+for col in outliers_columns:
+    dataset = mark_outliers_iqr(df[df["label"]==label], col)
+    plot_binary_outliers(dataset, col, col + "_outlier", True)
 
+for col in outliers_columns:
+    dataset=mark_outliers_chauvenet(df[df["label"]==label], col)
+    plot_binary_outliers(dataset, col, col + "_outlier", reset_index=True)
 
+dataset, outliers, X_scores = mark_outliers_lof(df[df["label"]==label], outliers_columns)
+for col in outliers_columns:
+    plot_binary_outliers(dataset, col, "outlier_lof", True)
 # --------------------------------------------------------------
 # Choose method and deal with outliers
 # --------------------------------------------------------------
 
 # Test on single column
-
+col="gyr_z"
+dataset = mark_outliers_chauvenet(df,col)
+dataset[dataset["gyr_z_outlier"]]
+dataset.loc[dataset["gyr_z_outlier"], "gyr_z"]=np.nan
 
 # Create a loop
+outliers_removed_df=df.copy()
+for col in outliers_columns:
+    for label in df["label"].unique():
+        dataset=mark_outliers_chauvenet(df[df["label"]==label], col)
 
+        #Replace values marked as outlier with Nan
+        dataset.loc[dataset[col + "_outlier"], col] = np.nan
+
+        #Update the column in the original DataFrame
+        outliers_removed_df.loc[(outliers_removed_df["label"]==label), col] = dataset[col]
+
+        n_outliers=len(dataset) - len(dataset[col].dropna())
+        print(f"Remove {n_outliers} from {col} for {label}")
+
+outliers_removed_df.info()
 # --------------------------------------------------------------
 # Export new dataframe
 # --------------------------------------------------------------
+outliers_removed_df.to_pickle("../../data/interim/02_outliers_removed_chauvenets.pkl")
 #%%
