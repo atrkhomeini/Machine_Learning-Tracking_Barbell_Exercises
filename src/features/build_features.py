@@ -206,7 +206,7 @@ plt.show()
 # --------------------------------------------------------------
 # Export dataset
 # --------------------------------------------------------------
-df_cluster.to_pickle("../../data/processed/04_data_features.pkl")
+df_cluster.to_pickle("../../data/interim/03_data_features.pkl")
 #%%
 
 #%%
