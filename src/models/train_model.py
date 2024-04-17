@@ -22,7 +22,7 @@ df = pd.read_pickle("../../data/interim/03_data_features.pkl")
 # --------------------------------------------------------------
 # Create a training and test set
 # --------------------------------------------------------------
-df_train = df.drop(columns=["participants", "category", "set", "duration"], axis=1)
+df_train = df.drop(columns=["participants", "category", "set"], axis=1)
 X = df_train.drop(columns=["label"], axis=1)
 y = df_train["label"]
 
