@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import sys
+sys.path.append("../../src/features/")
 from DataTransformation import LowPassFilter
 from scipy.signal import argrelextrema
 from sklearn.metrics import mean_absolute_error
