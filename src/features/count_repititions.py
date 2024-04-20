@@ -65,18 +65,62 @@ dead_set = dead_df[dead_df["set"] == dead_df["set"].unique()[0]]
 ohp_set = ohp_df[ohp_df["set"] == ohp_df["set"].unique()[0]]
 row_set = row_df[row_df["set"] == row_df["set"].unique()[0]]
 
-# --------------------------------------------------------------
-# Create function to count repetitions
-# --------------------------------------------------------------
 column = "acc_r"
 lowpass.low_pass_filter(
     bench_set, col=column, sampling_frequency=fs, cutoff_frequency=0.4, order=5
 )[column + "_lowpass"].plot(figsize=(20, 5), legend=True)
 
 # --------------------------------------------------------------
+# Create function to count repetitions
+# --------------------------------------------------------------
+def count_reps(dataset, cutoff=0.4, order=10, column="acc_r"):
+    data = lowpass.low_pass_filter(
+        dataset, col=column, sampling_frequency=fs, cutoff_frequency=cutoff, order=order
+    )
+    indexes = argrelextrema(data[column + "_lowpass"].values, np.greater)
+    peaks = data.iloc[indexes]
+
+    fig, ax = plt.subplots()
+    plt.plot(dataset[f"{column}_lowpass"])
+    plt.plot(peaks[column + "_lowpass"], "o", color="red")
+    ax.set_ylabel(f"{column}_lowpass")
+    exercise = dataset["label"].iloc[0].title()
+    category = dataset["category"].iloc[0].title()
+    plt.title(f"{category} {exercise}: {len(peaks)} Repetitions")
+    plt.show()
+
+    return len(peaks)
+
+count_reps(bench_set, cutoff=0.4)
+count_reps(squat_set, cutoff=0.35)
+count_reps(dead_set, cutoff=0.4)
+count_reps(ohp_set, cutoff=0.35)
+count_reps(row_set, cutoff=0.65, column="gyr_x")
+# --------------------------------------------------------------
 # Create benchmark dataframe
 # --------------------------------------------------------------
+df["reps"] = df["category"].apply(lambda x:5 if x == "heavy" else 10)
+rep_df = df.groupby(["label","category", "set"])["reps"].max().reset_index()
+rep_df["reps_predict"] = 0
 
+for s in df["set"].unique():
+    subset = df[df["set"] == s]
+
+    column = "acc_r"
+    cutoff = 0.4
+
+    if subset["label"].iloc[0] == "squat":
+        cutoff = 0.35
+    if subset["label"].iloc[0] == "row":
+        cutoff = 0.65
+        col = "gyr_x"
+    if subset["label"].iloc[0] == "ohp":
+        cutoff = 0.35
+    
+    reps = count_reps(subset, cutoff=cutoff, column=column)
+    rep_df.loc[(rep_df["set"] == s), "reps_predict"] = reps
+
+rep_df
 
 # --------------------------------------------------------------
 # Evaluate the results
