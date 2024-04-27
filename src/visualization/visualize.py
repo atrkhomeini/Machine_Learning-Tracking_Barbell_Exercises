@@ -15,6 +15,7 @@ set_df = df[df["set"]==1]
 #plt.plot(set_df["acc_y"]) #this plot shown duration
 
 plt.plot(set_df["acc_y"].reset_index(drop=True)) #this plot shown numbers of sample
+plt.title("Accelerometer y-axis")
 # --------------------------------------------------------------
 # Plot all exercises
 # --------------------------------------------------------------
