@@ -1,8 +1,8 @@
 <div align="left" style="position: relative;">
 <img src="https://cdn-icons-png.flaticon.com/512/6295/6295417.png" align="right" width="30%" style="margin: -20px 0 0 20px;">
-<h1>MACHINE_LEARNING-TRACKING_BARBELL_EXERCISES</h1>
+<h1>MACHINE LEARNING-TRACKING BARBELL EXERCISES</h1>
 <p align="left">
-	<em><code>❯ REPLACE-ME</code></em>
+
 </p>
 <p align="left">
 	<img src="https://img.shields.io/github/license/atrkhomeini/Machine_Learning-Tracking_Barbell_Exercises?style=default&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
