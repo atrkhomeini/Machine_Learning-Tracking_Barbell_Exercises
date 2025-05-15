@@ -38,32 +38,22 @@
 
 ## 📍 Overview
 
-<code>❯ 
-
-This project aims to develop a machine learning model capable of classifying different types of barbell exercises based on inertial sensor data. By utilizing data from accelerometers and gyroscopes collected during a training session, the system can recognize the type of exercise being performed and calculate the number of repetitions automatically.
+<code>This project aims to develop a machine learning model capable of classifying different types of barbell exercises based on inertial sensor data. By utilizing data from accelerometers and gyroscopes collected during a training session, the system can recognize the type of exercise being performed and calculate the number of repetitions automatically.
 
 This project covers the entire machine learning pipeline, from data collection and pre-processing, data exploration, feature extraction, modeling, evaluation, to result visualization.</code>
 
 ---
 
 ## 👾 Features
-
-<code>❯
+<code>
 
 - **Barbell Exercise Classification**: Recognizes different types of barbell exercises based on the movement patterns captured by the sensor.
-
 - **Automatic Rep Count**: Calculates the number of reps of each exercise in real-time.
-
 - **Sensor Data Pre-processing**: Cleans and prepares data from accelerometers and gyroscopes for further analysis.
-
 - **Feature Extraction and Selection**: Identifying important features that contribute to model accuracy.
-
 - **Model Evaluation**: Using metrics such as accuracy and confusion matrix to assess model performance.
-
 - **Data and Results Visualization**: Provides graphs and plots to understand data distribution and model performance.
-
 - **Modular Project Structure**: Neat code organization with separation between data, notebooks, scripts, and models.</code>
-
 ---
 
 ## 📁 Project Structure
