@@ -132,4 +132,4 @@ print(f"Mean Absolute Error: {error}")
 # --------------------------------------------------------------
 #Plot the results
 # --------------------------------------------------------------
-rep_df.groupby(["label","category"])[["reps", "reps_predict"]].mean().plot(kind="bar", figsize=(20, 5), title="Repetitions per Exercise")
+rep_df.groupby(["label","category"])[["reps", "reps_predict"]].mean().plot(kind="line", figsize=(20, 5), title="Repetitions per Exercise")
